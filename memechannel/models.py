@@ -40,7 +40,7 @@ else:
 
 def initialize_db():
 	pg_db.connect()
-	pg_db.create_tables([Post,Reply,User,UserInfo,ObjectCount,UserLink,UserBlock],safe=True)
+	#pg_db.create_tables([Post,Reply,User,UserInfo,ObjectCount,UserLink,UserBlock],safe=True)
 
 
 
