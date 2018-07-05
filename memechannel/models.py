@@ -20,7 +20,7 @@ if 'HEROKU' in os.environ:
     url = urlparse.urlparse(os.environ['DATABASE_URL'])
     pg_db = PostgresqlDatabase(url.path[1:], user=url.username, password=url.password,
                            host=url.hostname, port=url.port)  
-    '''
+    
     DATABASE = {
         'engine': 'peewee.PostgresqlDatabase',
         'name': url.path[1:],
@@ -29,7 +29,6 @@ if 'HEROKU' in os.environ:
         'host': url.hostname,
         'port': url.port,
     	}
-    '''
 else:
     DEBUG = True
     pg_db = PostgresqlDatabase('imgin_dev', user=pguser, password=postgrespw,
