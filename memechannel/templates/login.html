@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>imgin - login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  </head>
+  <body>
+  <div style="padding-bottom: 100px;">
+    <a href="{{url_for('home')}}"><img src="/static/img/siteimage/imgin.png"></a>
+  </div>
+    <div class="container" style="color: rgb(32, 195, 0)">
+      <h1>login:</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text" placeholder="Username" name="username" value="{{
+          request.form.username }}">
+         <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+        <input class="btn btn-default" type="submit" value="Login">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+  </body>
+</html>

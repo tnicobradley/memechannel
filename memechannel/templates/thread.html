@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head><link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<a href="{{ url_for('logout')}}" style="color: rgb(32, 195, 0); position: absolute; top:15px; padding-bottom: 65px" id='block1'>Logout </a>
+</head>
+<body>
+
+	<div style="padding-bottom: 100px;">
+		<a href="{{url_for('home')}}"><img src="/static/img/siteimage/imgin.png"></a>
+	</div><p style="margin-top: -145px; margin-bottom: 85px; color: rgb(32, 195, 0)">Logged in as {{ current_user.username }}</p>
+	<br><br>
+	{% for post in posts %}
+	
+	<form action="{{url_for('create_reply',postID=post.id)}}" method="POST" enctype=multipart/form-data>
+			<img src="/static/img/siteimage/reply.gif" style="position: relative; size: relative">
+				<br> <textarea name="text" cols="60" rows="5"; "></textarea><br>
+				<div style="color: rgb(32, 195, 0)">Post Image:<input type="file" name="image">
+				
+				<input type="submit" name="Reply" style="position: relative;">
+				<br>
+				<br>
+				<br>
+				
+	</form>
+	<h4 style=" position:relative; left:0px; display: inline-block;background-color: rgb(78, 96, 124); color: rgb(32, 195, 0)"><pre id='block1', style="color: red">{{post.title}} </pre><pre id='block2', style="color: white"> <a href="../user/{{post.user.username}}" style="color: white;">{{post.user.username}}</a>  </pre><div id='block3', style="color: rgb(32, 195, 0)"> {{ post.date.strftime('%m/%d/%y at %I:%M%p') }}<pre id='block4'; style="color: red";>  Replies: {% for reply in replies if reply.post == post %}{% if loop.last %}{{loop.index}}{% endif %}{% else %}0{% endfor %}  </pre>{% if current_user.is_admin == True %}  <pre id='block5' style="color: red"><a href="{{url_for('deletethread',postID=post)}}" style="color: red">Delete</a></pre>{% endif %}</div></h4>
+	<div style="text-align:left; padding: 10px; background-color: rgb(78, 96, 124); width: 400px">
+	<img src="../static/img/{{ post.image }}"/ style="width: 300px; position:relative; left:20px; ">
+	
+	<p style="color: rgb(32, 195, 0)">{{ post.text }}</p>
+	</div>
+	{% endfor %}
+	{% for reply in replies %}
+
+		<h4 style=" position:relative; display: inline-block;; background-color: rgb(78, 96, 124); color: rgb(32, 195, 0)"><a href="../user/{{reply.user.username}}" style="color: white;">{{reply.user.username}}</a>   {{ reply.date.strftime('%m/%d/%y at %I:%M%p') }}  ThreadNo: {{reply.post}} ReplyNo: {{loop.index}}  {% if current_user.is_admin == True %}  <pre id='block5' style="color: red"><a href="{{url_for('deletereply',replyID=reply)}}" style="color: red">Delete</a></pre>{% endif %}</h4>
+	<div style="text-align:left; padding: 10px; background-color: rgb(78, 96, 124); width: 400px">
+	{% if reply.image != 'None' %}
+	<a href=""></a><img src="../static/img/{{ reply.image }}"/ style="width: 300px; position:relative; left:20px; ">
+	{% endif %}
+	
+	
+	
+	<p style="color: rgb(32, 195, 0) ">{{ reply.text }}</p>
+	</div>
+	{% endfor %}
+
+</body>
+</html>

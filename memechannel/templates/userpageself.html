@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head><link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<a href="{{ url_for('logout')}}" style="color: rgb(32, 195, 0); position: absolute; top:15px; padding-bottom: 65px" id='block1'>Logout </a>
+</head>
+<body>
+
+	<div style="padding-bottom: 100px;">
+		<a href="{{url_for('home')}}"><img src="../static/img/siteimage/imgin.png"></a>
+	</div><p style="margin-top: -105px; margin-bottom: 85px; color: rgb(32, 195, 0)">Logged in as {{ current_user.username }}</p>
+	<br><br>
+
+
+	<div style="color: rgb(32, 195, 0)">
+		{% for post in posts %}
+			<body>
+					
+					<h4 style=" position:relative; left:0px; display: inline-block;background-color: rgb(78, 96, 124); color: rgb(32, 195, 0)"><pre id='block1', style="color: red">{{post.title}} </pre><pre id='block2', style="color: white"> <a href="../user/{{post.user.username}}" style="color: rgb(32, 195, 0);">{{post.user.username}}</a>  </pre><div id='block3', style="color: rgb(32, 195, 0)"> {{ post.date.strftime('%m/%d/%y at %I:%M%p') }}<pre id='block4'; style="color: red";>  Replies: {% for reply in replies if reply.post == post %}{% if loop.last %}{{loop.index}}{% endif %}{% else %}0{% endfor %}   <a href="../thread/{{ post.id }}" style="color: rgb(32, 195, 0);">Reply</a>   </pre>  </div></h4>
+					<div style="text-align:left; padding: 10px; background-color: rgb(78, 96, 124); width: 365px">
+  					
+
+
+  					<div class="dropdown">
+  				<img src="../static/img/{{ post.image }}" height="170" style="position:absolute; top-left:0px;margin-bottom: 200px">
+  				<div class="dropdown-content">
+  		  		<a href="../thread/{{post.id}}"><img src="../static/img/{{ post.image }}"  height="290" style="position:absolute; top-left:0px;"></a>
+ 		 		</div>
+					</div>
+
+
+  					
+  					<div style="color: rgb(32, 195, 0);position: relative; margin-top: 200px">{{ post.text }}</div>
+  					
+  					<br><br><br>
+
+					</div>
+					
+
+				</body>
+				
+				
+				<br>
+				<br>
+
+
+		{% endfor %}
+	</div>	
+</body>
+
+</html>

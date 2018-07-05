@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+	<head><link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+
+	<a href="{{ url_for('login')}}" style="color: rgb(32, 195, 0); position: absolute; top:15px; padding-bottom: 65px" id='block1'>Login </a>
+	<a href="{{ url_for('register')}}" style="color: rgb(32, 195, 0); position: absolute; top:15px; padding-bottom: 65px; margin-left: 40px" id='block2'>| Register</a>
+	<div style="padding-bottom: 100px;">
+		<img src="/static/img/siteimage/imgin.png">
+	</div>
+	<p style="color: rgb(32, 195, 0); margin-top: -145px; margin-bottom: 85px">Lurking</p></div>
+	</head>
+	<body>
+			<p style="color:rgb(32, 195, 0);display: inline-block; font-size: 4 vertical-align: top;" class="tooltip">NSFW Filter
+  		<span class="tooltiptext">Check to Enable</span></p><form style="color: rgb(32, 195, 0)" id='block1' action="{{url_for('home')}}" method="POST" enctype=multipart/form-data>
+  			{% if current_user.nsfwfilter == True %}
+  			<input type="checkbox"  name="nsfwFilter" value="False" onchange='this.form.submit()' checked>
+  			{% endif %}
+  			{% if current_user.nsfwfilter == False %}
+  			<input type="checkbox"  name="nsfwFilter" value="True" onchange='this.form.submit()'>
+  			{% endif %}
+
+  		</form><noscript><input type="submit" value="Submit"></noscript></p>
+
+			{% for post in posts %}
+			{% if nsfw_check(post,current_user.nsfwfilter) == False %}
+				
+				
+				<body>
+					
+					<h4 style=" position:relative; left:0px; display: inline-block;background-color: rgb(78, 96, 124); color: rgb(32, 195, 0)"><pre id='block1', style="color: red">{{post.title}} </pre><pre id='block2', style="color: white"> <a href="../user/{{post.user.username}}" style="color: white;">{{post.user.username}}</a>  </pre><div id='block3', style="color: rgb(32, 195, 0)"> {{ post.date.strftime('%m/%d/%y at %I:%M%p') }}<pre id='block4'; style="color: red";>  Replies: {% for reply in replies if reply.post == post %}{% if loop.last %}{{loop.index}}{% endif %}{% else %}0{% endfor %}   <a href="thread/{{ post.id }}" style="color: rgb(32, 195, 0);">Comments</a>   </pre>  </div></h4>
+					<div style="text-align:left; padding: 10px; background-color: rgb(78, 96, 124); width: 365px">
+  					
+
+						<div class="dropdown">
+  				<img src="static/img/{{ post.image }}" height="170" style="position:absolute; top-left:0px;margin-bottom: 200px">
+  				<div class="dropdown-content">
+  		  		<a href="thread/{{post.id}}"><img src="static/img/{{ post.image }}"  height="290" style="position:absolute; top-left:0px;"></a>
+ 		 		</div>
+					</div>
+
+
+
+  					
+  					<div style="color: rgb(32, 195, 0);margin-top: 200px;">{{ post.text }}</div>
+  					
+  					<br><br><br>
+				 <br>
+
+					</div>
+					
+
+				</body>
+				
+				
+				<br>
+				<br>
+			{% endif %}
+			{% endfor %}
+
+
+
+		
+
+	</body>
+
+</html>

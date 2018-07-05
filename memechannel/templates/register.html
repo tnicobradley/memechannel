@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>MemeChannel - Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen" style="color: rgb(32, 195, 0)">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+  </head>
+  <body>
+      <div style="padding-bottom: 100px;">
+    <a href="{{url_for('home')}}"><img src="/static/img/siteimage/imgin.png"></a>
+  </div>
+    <div class="container" style="color:rgb(32, 195, 0)">
+      <h1>Register:</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text" placeholder="Username" name="username" value="{{
+          request.form.username }}">
+          <input type="text" placeholder="Email" name="email" value="{{
+          request.form.email }}"><br>
+          <br>
+          <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}"><br><br>
+          <input type="password" placeholder="Retype Password" name="passwordcheck" value="{{
+          request.form.passwordcheck }}">
+        <input class="btn btn-default" type="submit" value="Register">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+  </body>
+</html>

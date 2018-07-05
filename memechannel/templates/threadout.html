@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head><link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"></head>
+<body>
+
+	<a href="{{ url_for('login')}}" style="color: rgb(32, 195, 0); position: absolute; top:15px; padding-bottom: 65px" id='block1'>Login </a>
+	<a href="{{ url_for('register')}}" style="color: rgb(32, 195, 0); position: absolute; top:15px; padding-bottom: 65px; margin-left: 40px" id='block2'>| Register</a>
+	<div style="padding-bottom: 100px;">
+		<a href="{{url_for('home')}}"><img src="/static/img/siteimage/imgin.png"></a>
+	</div>
+	<p style="color: rgb(32, 195, 0); margin-top: -105px; margin-bottom: 85px">Lurking</p></div>
+
+	<br><br>
+	{% for post in posts %}
+	
+	
+	<h4 style=" position:relative; left:0px; display: inline-block;background-color: rgb(78, 96, 124); color: rgb(32, 195, 0)"><pre id='block1', style="color: red">{{post.title}} </pre><pre id='block2', style="color: white"> <a href="../user/{{post.user.username}}" style="color: rgb(32, 195, 0);">{{post.user.username}}</a>  </pre><div id='block3', style="color: rgb(32, 195, 0)"> {{ post.date.strftime('%m/%d/%y at %I:%M%p') }}<pre id='block4'; style="color: red";>  Replies: {% for reply in replies if reply.post == post %}{% if loop.last %}{{loop.index}}{% endif %}{% else %}0{% endfor %}  </pre>  </div></h4>
+	<div style="text-align:left; padding: 10px; background-color: rgb(78, 96, 124); width: 400px">
+	<img src="../static/img/{{ post.image }}"/ style="width: 300px; position:relative; left:20px; ">
+	
+	<p style="color: rgb(32, 195, 0)">{{ post.text }}</p>
+	</div>
+	{% endfor %}
+	{% for reply in replies %}
+
+		<h4 style=" position:relative; width: 410px; background-color: rgb(78, 96, 124); color: rgb(32, 195, 0)"><a href="../user/{{reply.user.username}}" style="color: white;">{{reply.user.username}}</a>   {{reply.date.strftime('%m/%d/%y at %I:%M%p') }}  ThreadNo: {{reply.post}} ReplyNo: {{loop.index}}  </h4>
+	<div style="text-align:left; padding: 10px; background-color: rgb(78, 96, 124); width: 400px">
+	
+	<img src="../static/img/{{ reply.image }}"/ style="width: 300px; position:relative; left:20px; ">
+	
+	<p style="color: rgb(32, 195, 0) ">{{ reply.text }}</p>
+	</div>
+	{% endfor %}
+
+</body>
+</html>
